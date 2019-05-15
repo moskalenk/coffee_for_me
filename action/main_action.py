@@ -35,8 +35,8 @@ def salesman(name):
                      style=custom_style_1)#how to add some(2) latte?
     pprint(answers)
     salesman.save_to_bill(answers)
-    coffee_count = len(answers["cofee"])
-    salesman.add_to_db(name, coffee_count, answers)
+    coffee_count = len(answers["coffee"])
+    # salesman.add_to_db(name, coffee_count, answers)
 
 @main.command()
 @click.argument("name")
