@@ -26,10 +26,12 @@ def main():
 @main.command()
 @click.argument("name")
 def salesman(name):
-    #add check our user
     salesman = Salesman(name)
+    salesmans_list = salesman.get_all_salesmans()
+    if name not in salesmans_list:
+        raise Exception(f"There is no {name} in list of salesmans")
     coffee_with_price_list = salesman.get_all_coffee_with_price()
-    additional_ingridients = salesman.get_all_additional_ingredients_with_price()
+    additional_ingridients = salesman.get_all_additional_ingredients()
 
     answers = prompt(questions=coffee_questions(coffee_with_price_list, additional_ingridients),
                      style=custom_style_1)#how to add some(2) latte?

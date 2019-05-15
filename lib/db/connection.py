@@ -34,8 +34,15 @@ class DBConnection:
         with self.connection as connection:
             cursor = connection.cursor()
             cursor.execute(sql_statement)
-            select_results = cursor.fetchall()
-        return select_results
+            execute_results = cursor.fetchall()
+        return execute_results
+
+    def select_as_list(self, sql_statement):
+        with self.connection as connection:
+            cursor = connection.cursor()
+            cursor.execute(sql_statement)
+            execute_results = cursor.fetchall()
+        return list(map(" ".join, execute_results))
 
     def select_as_dict(self, sql_statement):
         with self.connection as connection:
@@ -54,28 +61,22 @@ class DBConnection:
             self.connection.commit()
         return self#do we need self in return
 
-    def execute_and_return(self, sql_statement):
-        with self.connection as connection:
-            cursor = connection.cursor()
-            cursor.execute(sql_statement)
-            execute_results = cursor.fetchall()
-        return execute_results
 
 
 
 
-#
-class DataExecute(DBConnection):
-    def execute_command(self, command):
-        with DBConnection(self.db_name) as cursor:
-            # result = conn.execute(command).fetchall()
-            cursor.execute(command)
-            column_names = [col[0] for col in cursor.description]
-            print(column_names)
-            # print(cursor.fetchall())
-            name_value_iters = [zip(column_names, row) for row in cursor.fetchall()]
-            print(name_value_iters)
-            name_to_values_dicts = [dict(name_value_iter) for name_value_iter in name_value_iters]
-            # select_results = cursor.fetchall()
-        return name_to_values_dicts
-print(DataExecute("db_coffee_for_me.db").execute_command("SELECT id, name FROM coffee"))
+# #
+# class DataExecute(DBConnection):
+#     def execute_command(self, command):
+#         with DBConnection(self.db_name) as cursor:
+#             # result = conn.execute(command).fetchall()
+#             cursor.execute(command)
+#             column_names = [col[0] for col in cursor.description]
+#             print(column_names)
+#             # print(cursor.fetchall())
+#             name_value_iters = [zip(column_names, row) for row in cursor.fetchall()]
+#             print(name_value_iters)
+#             name_to_values_dicts = [dict(name_value_iter) for name_value_iter in name_value_iters]
+#             # select_results = cursor.fetchall()
+#         return name_to_values_dicts
+# print(DataExecute("db_coffee_for_me.db").execute_command("SELECT id, name FROM coffee"))

@@ -8,6 +8,9 @@ class Salesman(Common):
         self.db_helper = DBHelper("db_coffee_for_me.db")
         # self.db_helper = DBHelper("test_db_cofee.db")
 
+    def get_all_salesmans(self):
+        return self.db_helper.all_salesmans()
+
     def get_all_coffee(self):
         return self.db_helper.all_coffee()
 
@@ -22,22 +25,18 @@ class Salesman(Common):
     def get_all_additional_ingredients(self):
         return self.db_helper.all_additional_ingredients()
 
-    def get_all_additional_ingredients_with_price(self):
-        all_additional_ingredients_with_price = self.db_helper.all_additional_ingredients_with_price()
-        return list(map(" ".join, all_additional_ingredients_with_price))
-
     def save_to_bill(self, sale_info_dict):
         nl = '\n'
-        total_price = self._get_total_price(sale_info_dict)
+        total_price = self._get_total_price_for_coffee(sale_info_dict)
         with open("bill.txt", "w") as f:
             for key in sale_info_dict:
                 f.write(f"{key}: {', '.join(sale_info_dict[key])}{nl}")
             f.write(f"Total price: {total_price}")
 
     @staticmethod
-    def _get_total_price(sale_info_dict):
-        vals = sale_info_dict.values()
-        prices_list = [int(e.split()[1]) for el in vals for e in el]
+    def _get_total_price_for_coffee(sale_info_dict):
+        vals = sale_info_dict["coffee"]
+        prices_list = [int(el.split()[1]) for el in vals]
         return sum(prices_list)#think about summ of diff currency
 
 
@@ -53,10 +52,10 @@ class Salesman(Common):
 # text = f"Winners are:{nl}{nl.join(names)}"
 #
 # print(Salesman("lkd")._get_total_price({'additional ingredients': ['sugar 1 USD', 'cream 2 RYB'], 'coffee': ['Espresso 3 USD']}))
-# print(Salesman("lkd").get_all_coffee())
+print(Salesman("lkd").get_all_salesmans())
 # print(Salesman("lkd").get_all_additional_ingredients())
 # print(Salesman("lkd").get_all_coffee_with_price())
-print(Salesman("lkd").num_of_sales())
+# print(Salesman("lkd").num_of_sales())
 
 
 # # all_coffee = Salesman("lkd").get_beverage_type()
