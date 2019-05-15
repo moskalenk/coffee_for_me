@@ -62,20 +62,20 @@ class DBConnection:
         return execute_results
 
 
-
-
 #
-class DataExecute(DBConnection):
-    def execute_command(self, command):
-        with DBConnection(self.db_name) as cursor:
-            # result = conn.execute(command).fetchall()
-            cursor.execute(command)
-            column_names = [col[0] for col in cursor.description]
-            print(column_names)
-            # print(cursor.fetchall())
-            name_value_iters = [zip(column_names, row) for row in cursor.fetchall()]
-            print(name_value_iters)
-            name_to_values_dicts = [dict(name_value_iter) for name_value_iter in name_value_iters]
-            # select_results = cursor.fetchall()
-        return name_to_values_dicts
-print(DataExecute("db_coffee_for_me.db").execute_command("SELECT id, name FROM coffee"))
+#
+# #
+# class DataExecute(DBConnection):
+#     def execute_command(self, command):
+#         with DBConnection(self.db_name) as cursor:
+#             # result = conn.execute(command).fetchall()
+#             cursor.execute(command)
+#             column_names = [col[0] for col in cursor.description]
+#             print(column_names)
+#             # print(cursor.fetchall())
+#             name_value_iters = [zip(column_names, row) for row in cursor.fetchall()]
+#             print(name_value_iters)
+#             name_to_values_dicts = [dict(name_value_iter) for name_value_iter in name_value_iters]
+#             # select_results = cursor.fetchall()
+#         return name_to_values_dicts
+# print(DataExecute("db_coffee_for_me.db").execute_command("SELECT id, name FROM coffee"))
