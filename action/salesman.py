@@ -35,9 +35,12 @@ class Salesman(Common):
 
     @staticmethod
     def _get_total_price_for_coffee(sale_info_dict):
-        vals = sale_info_dict["coffee"]
-        prices_list = [int(el.split()[1]) for el in vals]
-        return sum(prices_list)#think about summ of diff currency
+        coffe_with_price = sale_info_dict["coffee type"]
+        quantity = sale_info_dict["quantity"]
+        split_coffe_with_price = coffe_with_price.split()
+        price_for_coffe = int(split_coffe_with_price[1])
+        currency_type = split_coffe_with_price[-1]
+        return f"{price_for_coffe * quantity} {currency_type}" #think about summ of diff currency
 
 
     # def add_to_db(self, name, coffee_count, answers):
@@ -52,7 +55,7 @@ class Salesman(Common):
 # text = f"Winners are:{nl}{nl.join(names)}"
 #
 # print(Salesman("lkd")._get_total_price({'additional ingredients': ['sugar 1 USD', 'cream 2 RYB'], 'coffee': ['Espresso 3 USD']}))
-print(Salesman("lkd").get_all_salesmans())
+# print(Salesman("lkd").get_all_salesmans())
 # print(Salesman("lkd").get_all_additional_ingredients())
 # print(Salesman("lkd").get_all_coffee_with_price())
 # print(Salesman("lkd").num_of_sales())
