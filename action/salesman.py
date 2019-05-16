@@ -26,15 +26,26 @@ class Salesman(Common):
         return self.db_helper.all_additional_ingredients()
 
     def save_to_bill(self, sale_info_dict):
+        columns = []
+        rows = []
         nl = '\n'
         total_price = self._get_total_price_for_coffee(sale_info_dict)
-        with open("bill.txt", "w") as f:
-            for key in sale_info_dict:
-                if type(sale_info_dict.get(key)) is list:
-                    f.write(f"{key}: {', '.join(sale_info_dict[key])}{nl}")
-                else:
-                    f.write(f"{key}: {sale_info_dict[key]}{nl}")
-            f.write(f"Total price: {total_price}")
+
+        for key in sale_info_dict:
+            if type(sale_info_dict.get(key)) is list:
+                columns.append(key)
+                rows.append(f"{', '.join(sale_info_dict[key])}")
+            else:
+                columns.append(key)
+                rows.append(sale_info_dict[key])
+        print()
+        # with open("bill.txt", "w") as f:
+        #     for key in sale_info_dict:
+        #         if type(sale_info_dict.get(key)) is list:
+        #             f.write(f"{key}: {', '.join(sale_info_dict[key])}{nl}")
+        #         else:
+        #             f.write(f"{key}: {sale_info_dict[key]}{nl}")
+        #     f.write(f"Total price: {total_price}")
 
     @staticmethod
     def _get_total_price_for_coffee(sale_info_dict):

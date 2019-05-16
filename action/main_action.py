@@ -8,6 +8,7 @@ import click
 from action.manager import Manager
 from action.salesman import Salesman
 from action.questions import coffee_questions
+from lib.reporting import create_table
 
 
 @click.group()
@@ -37,7 +38,7 @@ def salesman(name):
                      style=custom_style_1)#how to add some(2) latte?
     pprint(answers)
     salesman.save_to_bill(answers)
-    coffee_count = len(answers["coffee"])
+    # coffee_count = len(answers["coffee"])
     # salesman.add_to_db(name, coffee_count, answers)
 
 @main.command()
