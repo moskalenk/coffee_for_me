@@ -1,7 +1,9 @@
 from action.common_type import Common
 from lib.db.db_helper import DBHelper
 
-from lib.reporting import create_table
+from action.positions_helper import PositionsHelper
+
+# from lib.reporting import create_table
 
 
 class Salesman(Common):
@@ -9,66 +11,18 @@ class Salesman(Common):
         super().__init__(name, position)
         self.db_helper = DBHelper("db_coffee_for_me.db")
         # self.db_helper = DBHelper("test_db_cofee.db")
-
-    def get_all_salesmans(self):
-        return self.db_helper.all_salesmans()
-
-    def get_all_coffee(self):
-        return self.db_helper.all_coffee()
+        self.position_helper = PositionsHelper()
 
     def get_all_coffee_with_price(self):
-        all_coffee_with_price = self.db_helper.all_coffee_with_price()
-        return list(map(" ".join, all_coffee_with_price))
-
-    def get_one_coffee_with_price(self, coffee_name):
-        coffee_with_price = self.db_helper.one_coffee_with_price(coffee_name)
-        return list(map(" ".join, coffee_with_price))
+        return self.db_helper.all_coffee_with_price()
 
     def get_all_additional_ingredients(self):
         return self.db_helper.all_additional_ingredients()
 
-    def save_to_bill(self, sale_info_dict):
-        columns = []
-        rows = []
-        # nl = '\n'
-        total_price = self._get_total_price_for_coffee(sale_info_dict)
-
-        for key in sale_info_dict:
-            if type(sale_info_dict.get(key)) is list:
-                columns.append(key)
-                rows.append(f"{', '.join(sale_info_dict[key])}")
-            else:
-                columns.append(key)
-                rows.append(sale_info_dict[key])
-        columns.append("Total")
-        rows.append(total_price)
-        res = create_table(rows, columns)
-        print(res)
-        # with open("bill.txt", "w") as f:
-        #     for key in sale_info_dict:
-        #         if type(sale_info_dict.get(key)) is list:
-        #             f.write(f"{key}: {', '.join(sale_info_dict[key])}{nl}")
-        #         else:
-        #             f.write(f"{key}: {sale_info_dict[key]}{nl}")
-        #     f.write(f"Total price: {total_price}")
-
-    @staticmethod
-    def _get_total_price_for_coffee(sale_info_dict):
-        coffee_with_price = sale_info_dict["coffee type"]
-        quantity = sale_info_dict["quantity"]
-        split_coffee_with_price = coffee_with_price.split()
-        price_for_coffee = int(split_coffee_with_price[1])
-        currency_type = split_coffee_with_price[-1]
-        return f"{price_for_coffee * quantity} {currency_type}" #think about summ of diff currency
+    def get_bill(self):
+        pass
 
 
-    # def add_to_db(self, name, coffee_count, answers):
-    def add_to_db(self, name):
-        id_by_name = self.db_helper.get_id_by_name(name)
-
-    def num_of_sales(self):
-        res = self.db_helper.number_of_sales_for_salesman("Bob")
-        return 0 if res is None else res
 
 
 # text = f"Winners are:{nl}{nl.join(names)}"

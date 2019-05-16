@@ -9,6 +9,8 @@ from action.manager import Manager
 from action.salesman import Salesman
 from action.questions import coffee_questions
 
+from action.positions_helper import PositionsHelper
+
 
 
 @click.group()
@@ -28,7 +30,8 @@ def main():
 @click.argument("name")
 def salesman(name):
     salesman = Salesman(name)
-    salesmans_list = salesman.get_all_salesmans()
+    position_helper = PositionsHelper()
+    salesmans_list = position_helper.get_all_salesmans()
     if name not in salesmans_list:
         raise Exception(f"There is no {name} in list of salesmans")
     coffee_with_price_list = salesman.get_all_coffee_with_price()
@@ -37,7 +40,9 @@ def salesman(name):
     answers = prompt(questions=coffee_questions(coffee_with_price_list, additional_ingridients),
                      style=custom_style_1)#how to add some(2) latte?
     pprint(answers)
-    salesman.save_to_bill(answers)
+    position_helper.save_to_bill(answers)
+    position_helper.update_summary_table_by_name("total", name, answers)
+    position_helper.update_summary_table_by_name("number_of_sales", name, answers)
     # coffee_count = len(answers["coffee"])
     # salesman.add_to_db(name, coffee_count, answers)
 

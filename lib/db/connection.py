@@ -30,6 +30,13 @@ class DBConnection:
     def _get_abs_path_for_db(cls, db_name):
         return str(Path.joinpath(cls.db_path_dir, db_name))#is it usefull to use classmethod?
 
+    def select_one(self, sql_statement):
+        with self.connection as connection:
+            cursor = connection.cursor()
+            cursor.execute(sql_statement)
+            select_results = cursor.fetchone()[0]
+        return select_results
+
     def select(self, sql_statement):
         with self.connection as connection:
             cursor = connection.cursor()

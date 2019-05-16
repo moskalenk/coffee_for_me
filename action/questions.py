@@ -4,15 +4,15 @@
 * run example by typing `python example/checkbox.py` in your console
 """
 from PyInquirer import Validator, ValidationError
+import re
 
 
 class NumberValidator(Validator):
     def validate(self, document):
-        try:
-            int(document.text)
-        except ValueError:
+        ok = re.match('^[1-9]$', document.text)
+        if not ok:
             raise ValidationError(
-                message='Please enter a number',
+                message='Please enter a number(from 1 to 9)',
                 cursor_position=len(document.text))  # Move cursor to end
 
 
@@ -24,8 +24,8 @@ def coffee_questions(coffee_list_from_db, additional_ingridients_from_db):
             'type': 'list',
             'message': 'What coffee do you need',
             'name': 'coffee type',
-            'choices': coffee_wit_price_list,
-            'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True
+            'choices': coffee_wit_price_list
+            # 'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True
             # check empty answer
         },
         {
@@ -33,6 +33,7 @@ def coffee_questions(coffee_list_from_db, additional_ingridients_from_db):
             'name': 'quantity',
             'message': 'Count of servings do you need?',
             'validate': NumberValidator,
+            # 'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True,
             'filter': lambda val: int(val)
         },
         {
@@ -40,6 +41,7 @@ def coffee_questions(coffee_list_from_db, additional_ingridients_from_db):
             'message': 'Select additional ingredients',
             'name': 'additional ingredients',
             'choices': additional_ingridients_list,
+            'filter': lambda val: "without any additions" if len(val) == 0 else val
         }
     ] #think about adding ingridients to each of coffee 2. add if no request
     return my_coffee_questions

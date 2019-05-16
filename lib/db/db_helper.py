@@ -10,15 +10,17 @@ class DBHelper(DBConnection):
         return list(map(",".join, coffee))
 
     def all_coffee_with_price(self):
-        return self.select("SELECT coffee.name, CAST(coffee.price AS TEXT), currency.name\
+        all_coffee_price = self.select("SELECT coffee.name, CAST(coffee.price AS TEXT), currency.name\
                                     FROM coffee\
                                     JOIN currency ON coffee.currency_id=currency.id")
+        return list(map(" ".join, all_coffee_price))
 
     def one_coffee_with_price(self, coffee_name):
-        return self.select(f"SELECT coffee.name, CAST(coffee.price AS TEXT), currency.name\
+        one_coffe_and_price = self.select(f"SELECT coffee.name, CAST(coffee.price AS TEXT), currency.name\
                                     FROM coffee\
                                     JOIN currency ON coffee.currency_id=currency.id\
                                     WHERE coffee.name='{coffee_name}'")
+        return list(map(" ".join, one_coffe_and_price))
 
     def all_additional_ingredients(self):
         additional_ingredients = self.select("SELECT name FROM ingredients")
@@ -29,23 +31,26 @@ class DBHelper(DBConnection):
                                     FROM ingredients\
                                     JOIN currency ON ingredients.currency_id=currency.id")
 
-    def get_id_by_name(self, name):
-        self.select(f"SELECT seller_name_id\
+    def get_element_from_total_table_for_salesman(self, column_name, name):
+        """
+        Try to get result by using salesman name and name of necessary column
+        :param column_name: 'total' or 'number_of_sales'
+        :param name:
+        :return:
+        """
+        id_by_name = self._get_id_by_name(name)
+        return self.select_one(f"SELECT {column_name}\
+                                FROM summary\
+                                WHERE id={id_by_name}")
+
+    def _get_id_by_name(self, name):
+        return self.select_one(f"SELECT seller_name_id\
                                 FROM salesman\
                                 JOIN summary ON salesman.id=summary.seller_name_id\
                                 WHERE name='{name}'")
 
-    def number_of_sales_for_salesman(self, name):
-        id = self.get_id_by_name(name)
-        self.select(f"SELECT number_of_sales\
-                                FROM summary\
-                                WHERE id='{id}'")
-
-
-    # def get_coffee_with_price(self):
-    #     coffee__price = self.db_helper.execute_command(f"SELECT name, CAST(price as TEXT) FROM coffee") #think about exaeption
-    #     return list(map(" - ".join, coffee__price))
-    #
-    # def get_additional_ingridients_and_price(self):
-    #     ingridients__price = self.db_helper.execute_command(f"SELECT name, CAST(price as TEXT) FROM additional_beverage") #think about exaeption
-    #     return list(map(" - ".join, ingridients__price))
+    def update_data_in_summary_table(self, column_name, name, new_value):
+        id_by_name = self._get_id_by_name(name)
+        return self.execute_and_commit(f"UPDATE summary\
+                                        SET '{column_name}'={new_value}\
+                                        WHERE id={id_by_name}")
