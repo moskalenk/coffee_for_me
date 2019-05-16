@@ -34,8 +34,8 @@ class DBConnection:
         with self.connection as connection:
             cursor = connection.cursor()
             cursor.execute(sql_statement)
-            execute_results = cursor.fetchall()
-        return execute_results
+            select_results = cursor.fetchall()
+        return select_results
 
     def select_as_list(self, sql_statement):
         with self.connection as connection:
