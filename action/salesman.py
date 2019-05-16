@@ -30,17 +30,20 @@ class Salesman(Common):
         total_price = self._get_total_price_for_coffee(sale_info_dict)
         with open("bill.txt", "w") as f:
             for key in sale_info_dict:
-                f.write(f"{key}: {', '.join(sale_info_dict[key])}{nl}")
+                if type(sale_info_dict.get(key)) is list:
+                    f.write(f"{key}: {', '.join(sale_info_dict[key])}{nl}")
+                else:
+                    f.write(f"{key}: {sale_info_dict[key]}{nl}")
             f.write(f"Total price: {total_price}")
 
     @staticmethod
     def _get_total_price_for_coffee(sale_info_dict):
-        coffe_with_price = sale_info_dict["coffee type"]
+        coffee_with_price = sale_info_dict["coffee type"]
         quantity = sale_info_dict["quantity"]
-        split_coffe_with_price = coffe_with_price.split()
-        price_for_coffe = int(split_coffe_with_price[1])
-        currency_type = split_coffe_with_price[-1]
-        return f"{price_for_coffe * quantity} {currency_type}" #think about summ of diff currency
+        split_coffee_with_price = coffee_with_price.split()
+        price_for_coffee = int(split_coffee_with_price[1])
+        currency_type = split_coffee_with_price[-1]
+        return f"{price_for_coffee * quantity} {currency_type}" #think about summ of diff currency
 
 
     # def add_to_db(self, name, coffee_count, answers):
