@@ -1,6 +1,8 @@
 from action.common_type import Common
 from lib.db.db_helper import DBHelper
 
+from lib.reporting import create_table
+
 
 class Salesman(Common):
     def __init__(self, name, position="salesman"):
@@ -28,7 +30,7 @@ class Salesman(Common):
     def save_to_bill(self, sale_info_dict):
         columns = []
         rows = []
-        nl = '\n'
+        # nl = '\n'
         total_price = self._get_total_price_for_coffee(sale_info_dict)
 
         for key in sale_info_dict:
@@ -38,7 +40,10 @@ class Salesman(Common):
             else:
                 columns.append(key)
                 rows.append(sale_info_dict[key])
-        print()
+        columns.append("Total")
+        rows.append(total_price)
+        res = create_table(rows, columns)
+        print(res)
         # with open("bill.txt", "w") as f:
         #     for key in sale_info_dict:
         #         if type(sale_info_dict.get(key)) is list:

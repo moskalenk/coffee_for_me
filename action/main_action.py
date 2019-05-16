@@ -8,7 +8,7 @@ import click
 from action.manager import Manager
 from action.salesman import Salesman
 from action.questions import coffee_questions
-from lib.reporting import create_table
+
 
 
 @click.group()
