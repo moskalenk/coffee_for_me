@@ -5,7 +5,7 @@ import constants as const
 
 class PositionsHelper:
     def __init__(self):
-        self.db_helper = DBHelper("test_db_cofee.db")
+        self.db_helper = DBHelper("db_coffee_for_me.db")
 
     def get_all_salesmans(self):
         return self.db_helper.all_salesmans()
