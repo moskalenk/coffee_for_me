@@ -1,10 +1,10 @@
 import sqlite3
-from pathlib import Path
+from pathlib import PurePath
+from definitions import db_path_dir
 
 
 class DBConnection:
     """Also we can use that class as context manager"""
-    db_path_dir = Path(__file__).parent
 
     def __init__(self, db_name):
         """Конструктор"""
@@ -28,7 +28,7 @@ class DBConnection:
 
     @classmethod
     def _get_abs_path_for_db(cls, db_name):
-        return str(Path.joinpath(cls.db_path_dir, db_name))#is it usefull to use classmethod?
+        return str(PurePath(db_path_dir, db_name))#is it usefull to use classmethod?
 
     def select_one(self, sql_statement):
         with self.connection as connection:

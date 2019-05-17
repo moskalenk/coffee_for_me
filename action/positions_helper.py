@@ -1,6 +1,8 @@
 from db.db_helper import DBHelper
 from reporting import create_table
 import constants as const
+from definitions import project_path_dir
+from pathlib import Path
 
 
 class PositionsHelper:
@@ -33,7 +35,8 @@ class PositionsHelper:
 
     @staticmethod
     def _save_last_order_in_file(table):
-        with open("bill.txt", "w") as f:
+        path_to_bill = Path(project_path_dir, "bill.txt")
+        with path_to_bill.open(mode="w") as f:
             f.write(table)
 
     @staticmethod
