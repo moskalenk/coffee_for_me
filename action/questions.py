@@ -5,6 +5,7 @@
 """
 from PyInquirer import Validator, ValidationError
 import re
+import constants as const
 
 
 class NumberValidator(Validator):
@@ -42,6 +43,14 @@ def coffee_questions(coffee_list_from_db, additional_ingridients_from_db):
             'name': 'additional ingredients',
             'choices': additional_ingridients_list,
             'filter': lambda val: "without any additions" if len(val) == 0 else val
-        }
+        },
+        {
+            'type': 'list',
+            'message': 'Do you need a bill',
+            'name': 'bill',
+            'choices': [const.YES, const.NO]
+            # 'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True
+            # check empty answer
+        },
     ] #think about adding ingridients to each of coffee 2. add if no request
     return my_coffee_questions

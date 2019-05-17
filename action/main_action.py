@@ -10,6 +10,7 @@ from action.salesman import Salesman
 from action.questions import coffee_questions
 
 from action.positions_helper import PositionsHelper
+import constants as const
 
 
 
@@ -39,12 +40,12 @@ def salesman(name):
 
     answers = prompt(questions=coffee_questions(coffee_with_price_list, additional_ingridients),
                      style=custom_style_1)#how to add some(2) latte?
-    pprint(answers)
-    position_helper.save_to_bill(answers)
+    # pprint(answers)
+    if answers[const.BILL] == const.YES:
+        salesman.get_bill(answers)
     position_helper.update_summary_table_by_name("total", name, answers)
     position_helper.update_summary_table_by_name("number_of_sales", name, answers)
-    # coffee_count = len(answers["coffee"])
-    # salesman.add_to_db(name, coffee_count, answers)
+
 
 @main.command()
 @click.argument("name")
