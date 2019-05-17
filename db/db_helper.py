@@ -5,9 +5,9 @@ class DBHelper(DBConnection):
     def all_salesmans(self):
         return self.select_as_list("SELECT name FROM salesman")
 
-    def all_coffee(self):
-        coffee = self.select("SELECT name FROM coffee")
-        return list(map(",".join, coffee))
+    # def all_coffee(self):
+    #     coffee = self.select("SELECT name FROM coffee")
+    #     return list(map(",".join, coffee))
 
     def all_coffee_with_price(self):
         all_coffee_price = self.select("SELECT coffee.name, CAST(coffee.price AS TEXT), currency.name\
@@ -15,21 +15,9 @@ class DBHelper(DBConnection):
                                     JOIN currency ON coffee.currency_id=currency.id")
         return list(map(" ".join, all_coffee_price))
 
-    def one_coffee_with_price(self, coffee_name):
-        one_coffe_and_price = self.select(f"SELECT coffee.name, CAST(coffee.price AS TEXT), currency.name\
-                                    FROM coffee\
-                                    JOIN currency ON coffee.currency_id=currency.id\
-                                    WHERE coffee.name='{coffee_name}'")
-        return list(map(" ".join, one_coffe_and_price))
-
     def all_additional_ingredients(self):
         additional_ingredients = self.select("SELECT name FROM ingredients")
         return list(map(",".join, additional_ingredients))
-
-    def all_additional_ingredients_with_price(self):
-        return self.select("SELECT ingredients.name, CAST(ingredients.price AS TEXT), currency.name\
-                                    FROM ingredients\
-                                    JOIN currency ON ingredients.currency_id=currency.id")
 
     def get_element_from_total_table_for_salesman(self, column_name, name):
         """
