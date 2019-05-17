@@ -14,4 +14,4 @@ class Salesman(Common):
         return self.position_helper.db_helper.all_additional_ingredients()
 
     def get_bill(self, sale_ifo_dict):
-        self.position_helper.create_a_bill(sale_ifo_dict)
+        self.position_helper.create_and_print_bill(sale_ifo_dict)
