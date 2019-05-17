@@ -1,4 +1,4 @@
-from action.common_type import Common
+from roles.common_type import Common
 
 
 class Manager(Common):

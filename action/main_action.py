@@ -1,29 +1,18 @@
 from __future__ import print_function, unicode_literals
-from pprint import pprint
 from PyInquirer import prompt
 from examples import custom_style_1
 
 import click
 
-from action.manager import Manager
-from action.salesman import Salesman
+from roles.salesman import Salesman
 from action.questions import coffee_questions
 
 from action.positions_helper import PositionsHelper
 import constants as const
 
 
-
 @click.group()
 def main():
-    # actual_name = get_name(name)
-    # actual_position = get_position(position)
-    # if actual_position == "salesman":
-    #     salesman = Salesman(actual_name)
-    #     res = input("type of coffee(espresso)")
-    #     print(res)
-    # elif actual_position == "manager":
-    #     manager = Manager(actual_name)
     print("main")
 
 
@@ -41,10 +30,11 @@ def salesman(name):
     answers = prompt(questions=coffee_questions(coffee_with_price_list, additional_ingridients),
                      style=custom_style_1)#how to add some(2) latte?
     # pprint(answers)
-    if answers[const.BILL] == const.YES:
-        salesman.get_bill(answers)
     position_helper.update_summary_table_by_name("total", name, answers)
     position_helper.update_summary_table_by_name("number_of_sales", name, answers)
+
+    if answers[const.BILL] == const.YES:
+        salesman.get_bill(answers)
 
 
 @main.command()

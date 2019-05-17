@@ -45,6 +45,7 @@ class DBConnection:
         return select_results
 
     def select_as_list(self, sql_statement):
+        """Works only with strings(think about it)"""
         with self.connection as connection:
             cursor = connection.cursor()
             cursor.execute(sql_statement)

@@ -10,7 +10,7 @@ class PositionsHelper:
     def get_all_salesmans(self):
         return self.db_helper.all_salesmans()
 
-    def give_a_bill(self, sale_info_dict):
+    def create_a_bill(self, sale_info_dict):
         columns, rows = [], []
         total_price, quantity, currency_type = self._get_total_price_and_currency_type_for_coffee(
             sale_info_dict)
