@@ -1,5 +1,4 @@
 import constants as const
-from reporting import create_table
 
 
 def get_value_by_key_from_answer(answer, key):
@@ -45,9 +44,3 @@ def preparing_data_for_creating_table(answer):
     rows.append(f"{total_price_for_current_order}")
     rows_list = (rows,)  # need do to it for creating correct table
     return rows_list, columns
-
-
-def create_bill_table(answer):
-    rows, columns = preparing_data_for_creating_table(answer)
-    table = create_table(rows, columns)
-    return table

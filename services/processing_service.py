@@ -2,7 +2,6 @@ from pathlib import Path
 from definitions import project_path_dir
 import processing_user_answer
 
-from reporting import create_table
 import constants as const
 
 
@@ -32,11 +31,3 @@ class ProcessingService:
         path_to_file = Path(project_path_dir, file_name)
         with path_to_file.open(mode=mode) as f:
             f.write(data)
-
-    def bill_table(self, answer):
-        return self.user_answer_processed_data.create_bill_table(answer)
-
-    def create_summary_table(self):
-        data = self.cafe_db.get_total()
-        res = list(map(lambda lst: ["-" if el is None else el for el in lst], data))
-        return create_table(res, ["Seller name", "Count of coffee", "Total in USD"])

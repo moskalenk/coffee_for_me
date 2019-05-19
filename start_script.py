@@ -22,6 +22,7 @@ def salesman(name):
     cafe_obj = Cafe()
     menu_service = cafe_obj.menu
     processing_service = cafe_obj.processing_service
+    reporting_service = cafe_obj.reporting_service
 
     sellers_list = cafe_obj.list_of_names_by_role("salesman")
     if name not in sellers_list:
@@ -39,24 +40,25 @@ def salesman(name):
     processing_service.update_summary_table_by_username("number_of_sales", name, answers)
 
     if answers[const.BILL] == const.YES:
-        bill = processing_service.bill_table(answers)
+        bill = reporting_service.get_bill_table(answers)
         processing_service.save_in_file(bill, const.BILL_FILE_NAME)
-        salesman_obj.look_at_bill(bill)
+        show_report_func = reporting_service.show_report(salesman_obj)
+        show_report_func(bill)
 
 
 @main.command()
 @click.argument("name")
 def manager(name):
     cafe_obj = Cafe()
-    processing_service = cafe_obj.processing_service
+    reporting_service = cafe_obj.reporting_service
 
     managers_list = cafe_obj.list_of_names_by_role("manager")
     if name not in managers_list:
         raise Exception(f"There is no {name} in list of managers")
     manager_obj = Manager(name)
 
-    report = processing_service.create_summary_table()
-    manager_obj.look_at_report(report)
+    show_report_func = reporting_service.show_report(manager_obj)
+    show_report_func()
 
 
 if __name__ == '__main__':
