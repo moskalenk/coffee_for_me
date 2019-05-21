@@ -4,11 +4,15 @@ from examples import custom_style_1
 
 import click
 
+from db.cafe_db import CafeDB
+from menu import Menu
 from roles import Salesman, Manager
 import questions
 
 import constants as const
 from cafe import Cafe
+from services.processing_service import ProcessingService
+from services.reporting_service import ReportingService
 
 
 @click.group()
@@ -19,18 +23,13 @@ def main():
 @main.command()
 @click.argument("name")
 def salesman(name):
-    cafe_obj = Cafe()
-    menu_service = cafe_obj.menu
-    processing_service = cafe_obj.processing_service
-    reporting_service = cafe_obj.reporting_service
-
     sellers_list = cafe_obj.list_of_names_by_role("salesman")
     if name not in sellers_list:
         raise Exception(f"There is no {name} in list of sellers")
     salesman_obj = Salesman(name)
 
-    coffee_with_price_list = menu_service.coffee_with_price()
-    additional_ingredients = menu_service.additional_ingredients()
+    coffee_with_price_list = menu.coffee_with_price()
+    additional_ingredients = menu.additional_ingredients()
 
     salesman_questions = questions.ask_questions(salesman_obj)
     answers = prompt(questions=salesman_questions(coffee_with_price_list, additional_ingredients),
@@ -49,9 +48,6 @@ def salesman(name):
 @main.command()
 @click.argument("name")
 def manager(name):
-    cafe_obj = Cafe()
-    reporting_service = cafe_obj.reporting_service
-
     managers_list = cafe_obj.list_of_names_by_role("manager")
     if name not in managers_list:
         raise Exception(f"There is no {name} in list of managers")
@@ -62,4 +58,12 @@ def manager(name):
 
 
 if __name__ == '__main__':
+    cafe_db = CafeDB("test_db_coffee.db")
+    menu = Menu(cafe_db)
+    processing_service = ProcessingService(cafe_db)
+    reporting_service = ReportingService(cafe_db)
+    cafe_obj = Cafe(cafe_db=cafe_db,
+                    menu=menu,
+                    processing_service=processing_service,
+                    reporting_service=reporting_service)
     main()
