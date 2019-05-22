@@ -3,6 +3,8 @@
 * run example by typing `python example/checkbox.py` in your console
 """
 from PyInquirer import Validator, ValidationError
+from PyInquirer import prompt
+from examples import custom_style_1
 import re
 import constants as const
 
@@ -18,7 +20,14 @@ class NumberValidator(Validator):
                 cursor_position=len(document.text))  # Move cursor to end
 
 
-def ask_questions(role):
+def ask_questions(role, coffee_with_price_list, additional_ingredients):
+    salesman_questions = get_questions(role)
+    answers = prompt(questions=salesman_questions(coffee_with_price_list, additional_ingredients),
+                     style=custom_style_1)
+    return answers
+
+
+def get_questions(role):
     if isinstance(role, Salesman):
         return salesman_questions
     else:
@@ -60,5 +69,5 @@ def salesman_questions(coffee_list_from_db, additional_ingredients_from_db):
             # 'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True
             # check empty answer
         },
-    ] #think about adding ingridients to each of coffee 2. add if no request
+    ]  # think about adding ingridients to each of coffee 2. add if no request
     return my_coffee_questions

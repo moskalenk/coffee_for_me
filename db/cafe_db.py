@@ -3,18 +3,18 @@ from db.connection import DBConnection
 
 class CafeDB(DBConnection):
 
-    def get_names_by_role(self, role):
+    def get_names_by_role(self, role_name):
         d = {"salesman": self.select_as_list(f"SELECT name FROM sellers"),
              "manager": self.select_as_list("SELECT name FROM managers")}
-        return d[role]
+        return d[role_name]
 
     def get_coffee_with_price(self):
         """
         :return: string with 'coffee name', price value' and currency type'. Ex "Latte 4 USD"
         """
         return self.select_as_list("SELECT coffee.name, coffee.price, currency.name\
-                                          FROM\
-                                          coffee JOIN currency ON coffee.currency_id=currency.id")
+                                    FROM\
+                                    coffee JOIN currency ON coffee.currency_id=currency.id")
 
     def get_additional_ingredients_list(self):
         return self.select_as_list("SELECT name FROM ingredients")

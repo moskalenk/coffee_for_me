@@ -1,6 +1,6 @@
 from __future__ import print_function, unicode_literals
-from PyInquirer import prompt
-from examples import custom_style_1
+# from PyInquirer import prompt
+# from examples import custom_style_1
 
 import click
 
@@ -31,10 +31,9 @@ def salesman(name):
     coffee_with_price_list = menu.coffee_with_price()
     additional_ingredients = menu.additional_ingredients()
 
-    salesman_questions = questions.ask_questions(salesman_obj)
-    answers = prompt(questions=salesman_questions(coffee_with_price_list, additional_ingredients),
-                     style=custom_style_1)#how to add some(2) latte?
-
+    answers = questions.ask_questions(role=salesman_obj,
+                                      coffee_with_price_list=coffee_with_price_list,
+                                      additional_ingredients=additional_ingredients)
     processing_service.update_summary_table_by_username("total", name, answers)
     processing_service.update_summary_table_by_username("number_of_sales", name, answers)
 
