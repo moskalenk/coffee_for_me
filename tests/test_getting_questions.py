@@ -32,3 +32,8 @@ def test_getting_names_by_role(param_test, names_list):
     cafe_db = names_list
     res = cafe_db.get_names_by_role(param_test)
     print(res)
+
+def test_sda(belonging_name_to_role):
+    processing_service = belonging_name_to_role
+    processing_service.check_belonging_name_to_role("Bob", "manager")
+    assert True
