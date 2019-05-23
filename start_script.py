@@ -23,9 +23,8 @@ def main():
 @main.command()
 @click.argument("name")
 def salesman(name):
-    sellers_list = cafe_obj.list_of_names_by_role("salesman")
-    if name not in sellers_list:
-        raise Exception(f"There is no {name} in list of sellers")
+    processing_service.check_belonging_name_to_role(name, "salesman")
+
     salesman_obj = Salesman(name)
 
     coffee_with_price_list = menu.coffee_with_price()
@@ -47,10 +46,8 @@ def salesman(name):
 @main.command()
 @click.argument("name")
 def manager(name):
-    managers_list = cafe_obj.list_of_names_by_role("manager")
-    if name not in managers_list:
-        raise Exception(f"There is no {name} in list of managers")
     manager_obj = Manager(name)
+    processing_service.check_belonging_name_to_role(name, "manager")
 
     show_report_func = reporting_service.show_report(manager_obj)
     show_report_func()
