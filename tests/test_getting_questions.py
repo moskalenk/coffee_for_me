@@ -1,3 +1,4 @@
+from db.cafe_db import CafeDB
 from questions import get_questions
 import pytest
 
@@ -29,3 +30,8 @@ def test_getting_names_by_role_negative(mocked__cafe_db__select_as_list):
     cafe_db, _ = mocked__cafe_db__select_as_list
     with pytest.raises(KeyError):
         cafe_db.get_names_by_role("incorrect_role")
+
+def test_sda(belonging_name_to_role):
+    processing_service = belonging_name_to_role
+    processing_service.check_belonging_name_to_role("Het", "manager")
+    assert True

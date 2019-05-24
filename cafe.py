@@ -4,6 +4,3 @@ class Cafe:
         self.menu = menu
         self.processing_service = processing_service
         self.reporting_service = reporting_service
-
-    def list_of_names_by_role(self, role_name):
-        return self.cafe_db.get_names_by_role(role_name)
