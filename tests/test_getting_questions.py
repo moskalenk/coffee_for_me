@@ -35,5 +35,5 @@ def test_getting_names_by_role(param_test, names_list):
 
 def test_sda(belonging_name_to_role):
     processing_service = belonging_name_to_role
-    processing_service.check_belonging_name_to_role("Bob", "manager")
+    processing_service.check_belonging_name_to_role("Het", "manager")
     assert True

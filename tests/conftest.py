@@ -1,7 +1,5 @@
 import pytest
 
-from db.cafe_db import CafeDB
-from db.connection import DBConnection
 from roles import Salesman, Manager
 from services.processing_service import ProcessingService
 
@@ -19,8 +17,12 @@ def create_manager_object():
 
 @pytest.fixture()
 def belonging_name_to_role(mocker):
-    names_list = ["lisa", "Bob"]
-    mocker.patch.object(CafeDB, "get_names_by_role")
-    CafeDB.get_names_by_role.return_value = names_list
-    processing_service = ProcessingService("None")
+    names_list = ["lisa", "Bob", "Het"]
+
+    mocked_cafe_db = mocker.patch('db.cafe_db.CafeDB')
+    mocked_cafe_db.return_value.get_names_by_role.return_value = names_list
+
+    cafe_db = mocked_cafe_db()
+    processing_service = ProcessingService(cafe_db)
+
     return processing_service
