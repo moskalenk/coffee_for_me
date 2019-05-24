@@ -1,4 +1,3 @@
-from db.cafe_db import CafeDB
 from questions import get_questions
 import pytest
 
@@ -15,20 +14,18 @@ def test_no_questions_for_manager(create_manager_object):
         get_questions(manager_role)
 
 
-
-@pytest.fixture()
-def names_list(mocker):
-    mocker.patch.object(CafeDB, "select_as_list")
-    CafeDB.select_as_list.return_value = ["lisa", "Bob"]
-    cafe_db = CafeDB("None")
-    return cafe_db
-
-
-@pytest.fixture(scope="function", params=["manager", "salesman", "incorrect_role"])
+@pytest.fixture(scope="function", params=["manager", "salesman"])
 def param_test(request):
     return request.param
 
-def test_getting_names_by_role(param_test, names_list):
-    cafe_db = names_list
-    res = cafe_db.get_names_by_role(param_test)
-    print(res)
+
+def test_getting_names_by_role_positive(param_test, mocked__cafe_db__select_as_list):
+    cafe_db, list_of_names = mocked__cafe_db__select_as_list
+    names = cafe_db.get_names_by_role(param_test)
+    assert names == list_of_names
+
+
+def test_getting_names_by_role_negative(mocked__cafe_db__select_as_list):
+    cafe_db, _ = mocked__cafe_db__select_as_list
+    with pytest.raises(KeyError):
+        cafe_db.get_names_by_role("incorrect_role")
