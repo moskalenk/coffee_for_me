@@ -1,7 +1,3 @@
-"""
-* Checkbox question example
-* run example by typing `python example/checkbox.py` in your console
-"""
 from PyInquirer import Validator, ValidationError
 from PyInquirer import prompt
 from examples import custom_style_1
@@ -43,15 +39,12 @@ def salesman_questions(coffee_list_from_db, additional_ingredients_from_db):
             'message': 'What coffee do you need',
             'name': const.COFFEE_TYPE,
             'choices': coffee_wit_price_list
-            # 'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True
-            # check empty answer
         },
         {
             'type': 'input',
             'name': const.QUANTITY,
             'message': 'Count of servings do you need?',
             'validate': NumberValidator,
-            # 'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True,
             'filter': lambda val: int(val)
         },
         {
@@ -66,8 +59,6 @@ def salesman_questions(coffee_list_from_db, additional_ingredients_from_db):
             'message': 'Do you need a bill',
             'name': const.BILL,
             'choices': [const.YES, const.NO]
-            # 'validate': lambda answer: 'You must choose at least one topping.' if len(answer) == 0 else True
-            # check empty answer
         },
-    ]  # think about adding ingridients to each of coffee 2. add if no request
+    ]
     return my_coffee_questions

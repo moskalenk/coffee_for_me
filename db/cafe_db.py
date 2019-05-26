@@ -45,5 +45,5 @@ class CafeDB(DBConnection):
 
     def get_total(self):
         return self.select("SELECT name, number_of_sales, total\
-                                    FROM\
-                                    sellers join summary on sellers.id=summary.seller_name_id")
+                           FROM\
+                           sellers join summary on sellers.id=summary.seller_name_id")

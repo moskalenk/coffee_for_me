@@ -22,11 +22,7 @@ def calculate_price_for_order(answer):
 
 
 def preparing_data_for_creating_table(answer):
-    """
-    Creating columns and rows for creating table with bill
-    :param answer:
-    :return:
-    """
+    """Creating columns and rows for creating table with bill"""
     set_of_correct_columns = (const.COFFEE_TYPE, const.QUANTITY, const.ADDITIONAL_INGREDIENTS)
     rows, columns = [], []
     for key in answer:

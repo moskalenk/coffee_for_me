@@ -1,6 +1,4 @@
 from __future__ import print_function, unicode_literals
-# from PyInquirer import prompt
-# from examples import custom_style_1
 
 import click
 

@@ -27,6 +27,7 @@ def mocked__cafe_db__select_as_list(mocker):
     cafe_db_obj = CafeDB()
     return cafe_db_obj, list_of_names
 
+
 @pytest.fixture()
 def belonging_name_to_role(mocker):
     names_list = ["lisa", "Bob", "Het"]

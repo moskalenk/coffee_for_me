@@ -7,5 +7,3 @@ class Menu:
 
     def additional_ingredients(self):
         return self.cafe_db.get_additional_ingredients_list()
-
-
