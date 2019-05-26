@@ -35,4 +35,4 @@ class ProcessingService:
     def check_belonging_name_to_role(self, name, role_name):
         names_list = self.cafe_db.get_names_by_role(role_name)
         if name not in names_list:
-            raise NameError(f"There is no {name} in list of {role_name}")
+            raise NameError(f"There is no {name} in list of {role_name}s")

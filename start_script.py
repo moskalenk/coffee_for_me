@@ -1,6 +1,19 @@
+"""
+Usage:
+    start_script.py <role> <name>
+    start_script.py salesman (Alex | Bob | Liza)
+    start_script.py manager (Jeff | Scott | Garry)
+    start_script.py -h|--help
+Options:
+    <role>  (salesman | manager)
+    <name>  Name argument(name from DB for necessary role).
+    -h --help  Show this screen.
+"""
+
 from __future__ import print_function, unicode_literals
 
 import click
+from docopt import docopt
 
 from db.cafe_db import CafeDB
 from menu import Menu
@@ -52,6 +65,8 @@ def manager(name):
 
 
 if __name__ == '__main__':
+    arguments = docopt(__doc__)
+
     cafe_db = CafeDB("test_db_coffee.db")
     menu = Menu(cafe_db)
     processing_service = ProcessingService(cafe_db)
