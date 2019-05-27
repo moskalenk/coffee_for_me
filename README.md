@@ -1,11 +1,14 @@
 ### Installation:
 1. install python3.6+ (download [here](https://www.python.org/downloads/release/python-367/));
-2. pip install -r requirements.txt;
-3. `go to .../coffee_for_me/db and do 'python db_creation.py' for create necessary database;`
-4. don't forget about adding '.../coffee_for_me' path in PYTHONPATH var(if need);
+2. `pip install -r requirements.txt`;
+3. go to `.../coffee_for_me/db` and do `python db_creation.py` for create necessary database;
+4. run main script, as examle do `python start_script.py salesman Liza` (from 'coffee_for_me' dir)
+5. If you have some issues with launching script(may it helps):
+  * don't forget about adding '.../coffee_for_me' path in PYTHONPATH var(if need);
+  * launch script from console(not with IDE's UI)
 
 ### About:
-You can see a smart coffee machine that can sell coffee with additional ingredients or print a common info about all sellers. Depending on you role.
+You can see a smart coffee machine that can sell coffee with additional ingredients or print a common info about all sellers. Depends on you role.
  
 There are 2 roles that we can use:
 ```
