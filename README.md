@@ -27,6 +27,6 @@ Default names:
 You can see detail in help do 'python start_script.py -h'
 
 
-###If you have some issues with launching script(may it helps):
+### If you have some issues with launching script(may it helps):
   * don't forget about adding `.../coffee_for_me` path in PYTHONPATH var(if need);
   * launch script from console(not with IDE's UI)
