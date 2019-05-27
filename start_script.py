@@ -21,7 +21,7 @@ from roles import Salesman, Manager
 import questions
 
 import constants as const
-from cafe import Cafe
+from smart_coffee_machine import SmartCoffeeMachine
 from services.processing_service import ProcessingService
 from services.reporting_service import ReportingService
 
@@ -67,12 +67,12 @@ def manager(name):
 if __name__ == '__main__':
     arguments = docopt(__doc__)
 
-    cafe_db = CafeDB("test_db_coffee.db")
+    cafe_db = CafeDB("db_coffee_for_me.db")
     menu = Menu(cafe_db)
     processing_service = ProcessingService(cafe_db)
     reporting_service = ReportingService(cafe_db)
-    cafe_obj = Cafe(cafe_db=cafe_db,
-                    menu=menu,
-                    processing_service=processing_service,
-                    reporting_service=reporting_service)
+    cafe_obj = SmartCoffeeMachine(cafe_db=cafe_db,
+                                  menu=menu,
+                                  processing_service=processing_service,
+                                  reporting_service=reporting_service)
     main()

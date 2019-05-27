@@ -31,6 +31,10 @@ def get_questions(role):
 
 
 def salesman_questions(coffee_list_from_db, additional_ingredients_from_db):
+    """
+    Form questions that shows in console after running script in 'salesman' mode.
+    FYI: For more info take a look docs about PyInquirer module.
+    """
     coffee_wit_price_list = list(map(lambda el: {"name": el}, coffee_list_from_db))
     additional_ingridients_list = list(map(lambda el: {"name": el}, additional_ingredients_from_db))
     my_coffee_questions = [

@@ -1,6 +1,6 @@
-.venv
-.pytest_cache
-.idea
+.venv/
+**/.pytest_cache/
+.idea/
 *.db
-__pycache__
+**/__pycache__/
 bill.txt

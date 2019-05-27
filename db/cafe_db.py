@@ -10,7 +10,8 @@ class CafeDB(DBConnection):
 
     def get_coffee_with_price(self):
         """
-        :return: string with 'coffee name', price value' and currency type'. Ex "Latte 4 USD"
+        :return: list of strings with 'coffee name', price value' and currency type'.
+        Ex: ['Espresso 3 USD', 'Latte 4 USD', 'Cappuccino 6 USD']
         """
         return self.select_as_list("SELECT coffee.name, coffee.price, currency.name\
                                     FROM\
@@ -23,8 +24,6 @@ class CafeDB(DBConnection):
         """
         Try to get result by using salesman name and name of necessary column
         :param column_name: 'total' or 'number_of_sales'
-        :param name:
-        :return:
         """
         id_by_name = self._get_id_by_name(name)
         return self.select_one(f"SELECT {column_name}\
