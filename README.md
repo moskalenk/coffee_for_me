@@ -14,7 +14,7 @@ Default names:
 * for manager role - Jeff | Scott | Garry.
 ```
 
-* For 'salesman' role we have some additional questions about his order and after we save the last order data in file(if salesman want) - 'bill.txt'(in 'coffee_for_me' dir);
+* For 'salesman' role we have some additional questions about his order and after we save the last order data(if salesman want) in file - 'bill.txt'(in 'coffee_for_me' dir);
 * For 'manager' role we just give common info about all sellers.
 
 ### Installation:
@@ -25,6 +25,7 @@ Default names:
 
 ### Usage and start script Option:
 You can see detail in help do 'python start_script.py -h'
+
 
 ###If you have some issues with launching script(may it helps):
   * don't forget about adding `.../coffee_for_me` path in PYTHONPATH var(if need);
